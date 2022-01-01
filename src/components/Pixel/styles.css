@@ -1,0 +1,21 @@
+.pixel {
+  height: 40px;
+  width: 40px;
+  margin: 2px;
+}
+
+.pixel:hover {
+  filter: brightness(.8);
+}
+
+.pixel:active {
+  filter: brightness(5);
+}
+
+.on {
+  background-color: #cc1aae;
+}
+
+.off {
+  background-color: #7f7dee;
+}
