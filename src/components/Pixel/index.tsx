@@ -1,7 +1,12 @@
 import './styles.css';
 
-function Pixel({ isOn }: { isOn: boolean }) {
-  return <div className={`pixel ${isOn ? 'on' : 'off'}`} />;
+interface PixelProps {
+  isOn: boolean;
+  setter: () => void;
+}
+
+function Pixel({ isOn, setter }: PixelProps) {
+  return <div onMouseEnter={ setter } className={`pixel ${isOn ? 'on' : 'off'}`} />;
 }
 
 export default Pixel;
