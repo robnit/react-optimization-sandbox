@@ -6,6 +6,29 @@ export const App = () => {
     <div className="main">
       <div className="title">hello</div>
       <PixelRow />
+      <PixelRow />
+      <PixelRow />
+      <PixelRow />
+      <PixelRow />
+      <PixelRow />
+      <PixelRow />
+      <PixelRow />
+      <PixelRow />
+      <PixelRow />
+      <PixelRow />
+      <PixelRow />
+      <PixelRow />
+      <PixelRow />
+      <PixelRow />
+      <PixelRow />
+      <PixelRow />
+      <PixelRow />
+      <PixelRow />
+      <PixelRow />
+      <PixelRow />
+      <PixelRow />
+      <PixelRow />
+      <PixelRow />
     </div>
   );
 };
