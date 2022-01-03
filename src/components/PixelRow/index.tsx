@@ -2,7 +2,8 @@ import React from 'react';
 import Pixel from '../Pixel';
 import './styles.css';
 
-const INITIAL_ROW = Array(40).fill(false);
+const PIXELS_PER_ROW = 150;
+const INITIAL_ROW = Array(PIXELS_PER_ROW).fill(false);
 
 const sleep = () => new Promise((resolve) => setTimeout(resolve, 50));
 
@@ -13,30 +14,35 @@ const blink = async (index: number, dispatch: React.Dispatch<number>) => {
 };
 
 async function ripple(index: number, dispatch: React.Dispatch<number>) {
-  for (let i = 0; i < 8; ++i) {
+  for (let i = 0; i < 22; ++i) {
     await Promise.all([blink(index - i, dispatch), blink(index + i, dispatch)]);
   }
-
   return Promise.resolve();
 }
 
-function makeSetter (dispatch: React.Dispatch<number>): (i: number) => Promise<void> {
+function makeSetter(
+  dispatch: React.Dispatch<number>
+): (i: number) => Promise<void> {
   return async (i: number): Promise<void> => await ripple(i, dispatch);
 }
 
 interface PixelProps {
   isOn: boolean;
-  key: string;
+  index: number;
   setter: () => void;
 }
 
-const areEqual = (prevProps: PixelProps, nextProps:PixelProps) => {
-  if (prevProps.setter !== nextProps.setter || prevProps.isOn !== nextProps.isOn) return false;
+const areEqual = (prevProps: PixelProps, nextProps: PixelProps) => {
+  if (
+    prevProps.setter !== nextProps.setter ||
+    prevProps.isOn !== nextProps.isOn
+  )
+    return false;
   return true;
 };
 
-const MemoizedPixel = React.memo(({ setter, isOn, key }: PixelProps) => {
-  return <Pixel setter={setter} isOn={isOn} key={key} />
+const MemoizedPixel = React.memo(({ setter, isOn, index }: PixelProps) => {
+  return <Pixel setter={setter} isOn={isOn} key={index} />;
 }, areEqual);
 
 function reducer(state: boolean[], index: number) {
@@ -53,11 +59,13 @@ function PixelRow() {
     <div className="row">
       {state.map((isOn, i) => {
         const setter = React.useCallback(() => {
-          const setterFn = makeSetter(dispatch)
+          const setterFn = makeSetter(dispatch);
           return setterFn(i);
-        }, [])
+        }, []);
 
-        return <MemoizedPixel setter={setter} isOn={isOn} key={`${i}_${isOn}`} />;
+        return (
+          <MemoizedPixel setter={setter} isOn={isOn} index={i} key={i} />
+        );
       })}
     </div>
   );
