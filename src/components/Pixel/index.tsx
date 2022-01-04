@@ -6,7 +6,7 @@ interface PixelProps {
 }
 
 function Pixel({ isOn, setter }: PixelProps) {
-  return <div onMouseEnter={ setter } className={`pixel ${isOn ? 'on' : 'off'}`} />;
+  return <div onMouseEnter={setter} className={`pixel ${isOn ? 'on' : 'off'}`} />;
 }
 
 export default Pixel;

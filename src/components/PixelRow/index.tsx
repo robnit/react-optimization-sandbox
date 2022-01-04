@@ -20,9 +20,7 @@ async function ripple(index: number, dispatch: React.Dispatch<number>) {
   return Promise.resolve();
 }
 
-function makeSetter(
-  dispatch: React.Dispatch<number>
-): (i: number) => Promise<void> {
+function makeSetter(dispatch: React.Dispatch<number>): (i: number) => Promise<void> {
   return async (i: number): Promise<void> => await ripple(i, dispatch);
 }
 
@@ -33,11 +31,7 @@ interface PixelProps {
 }
 
 const areEqual = (prevProps: PixelProps, nextProps: PixelProps) => {
-  if (
-    prevProps.setter !== nextProps.setter ||
-    prevProps.isOn !== nextProps.isOn
-  )
-    return false;
+  if (prevProps.setter !== nextProps.setter || prevProps.isOn !== nextProps.isOn) return false;
   return true;
 };
 
@@ -63,9 +57,7 @@ function PixelRow() {
           return setterFn(i);
         }, []);
 
-        return (
-          <MemoizedPixel setter={setter} isOn={isOn} index={i} key={i} />
-        );
+        return <MemoizedPixel setter={setter} isOn={isOn} index={i} key={i} />;
       })}
     </div>
   );
